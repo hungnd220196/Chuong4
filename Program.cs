@@ -67,8 +67,8 @@ namespace Chuong4
             //Console.WriteLine($"Hệ nhị phân: {binaryNumber}");
 
             //b2
-            Console.WriteLine("Nhập số KW tiêu thụ: ");
-            int consumption = int.Parse(Console.ReadLine());
+            //Console.WriteLine("Nhập số KW tiêu thụ: ");
+            //int consumption = int.Parse(Console.ReadLine());
             //int totalPrice;
             //if (consumption <= 100)
             //{
@@ -89,21 +89,25 @@ namespace Chuong4
             //Console.WriteLine($"Tổng tiền điện: {totalPrice} đồng");
 
             // dùng for
+
+            Console.WriteLine("Nhập số KW tiêu thụ: ");
+            int consumption = int.Parse(Console.ReadLine());
             int totalPrice = 0;
-            for (int i = 1; i <= consumption; i++)
+
+            int[] thresholds = { 100, 50, 50, int.MaxValue };
+            int[] rates = { 500, 550, 600, 650 };
+
+            for (int i = 0; i < thresholds.Length; i++)
             {
-                if (i <= 100)
-                {
-                    totalPrice = (i * 500);
-                }
-                if (i <= 150)
-                {
-                    totalPrice = (100 * 500) + (i - 100) * 550;
-                }
+                int currentConsumption = Math.Min(consumption, thresholds[i]);
+                totalPrice += currentConsumption * rates[i];
+                consumption -= currentConsumption;
 
+                if (consumption <= 0)
+                    break;
             }
-            Console.WriteLine($"{totalPrice}");
 
+            Console.WriteLine($"Tổng tiền điện: {totalPrice} đồng");
 
 
             //    //b3
